@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>AI简历优化助手 - 豆包AI版</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  font-family:'Poppins',sans-serif;
+  background:linear-gradient(135deg,#eef2ff,#dbeafe,#f0fdf4);
+  min-height:100vh;
+  color:#1f2937;
+}
+
+header{
+  background:linear-gradient(135deg,#4f46e5,#22c55e);
+  color:white;
+  text-align:center;
+  padding:40px 20px;
+  box-shadow:0 5px 20px rgba(0,0,0,0.15);
+}
+
+header h1{
+  font-size:42px;
+  margin-bottom:10px;
+}
+
+header p{
+  font-size:16px;
+  opacity:0.95;
+}
+
+.container{
+  max-width:1200px;
+  margin:40px auto;
+  padding:20px;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(340px,1fr));
+  gap:25px;
+}
+
+.card{
+  background:rgba(255,255,255,0.92);
+  border-radius:24px;
+  padding:28px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.08);
+  transition:0.3s;
+}
+
+.card:hover{
+  transform:translateY(-5px);
+}
+
+.card h2{
+  color:#4f46e5;
+  margin-bottom:15px;
+  font-size:24px;
+}
+
+.card p,
+.card li{
+  line-height:1.8;
+}
+
+textarea,
+input{
+  width:100%;
+  margin-top:12px;
+  border:none;
+  outline:none;
+  border-radius:14px;
+  padding:15px;
+  background:#f3f4f6;
+  font-size:15px;
+}
+
+textarea{
+  min-height:150px;
+  resize:none;
+}
+
+button{
+  width:100%;
+  margin-top:15px;
+  border:none;
+  border-radius:14px;
+  padding:14px;
+  background:linear-gradient(135deg,#4f46e5,#22c55e);
+  color:white;
+  font-size:16px;
+  font-weight:600;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+button:hover{
+  transform:scale(1.02);
+  box-shadow:0 8px 20px rgba(79,70,229,0.3);
+}
+
+.result{
+  margin-top:18px;
+  padding:16px;
+  background:#f9fafb;
+  border-left:5px solid #22c55e;
+  border-radius:12px;
+  white-space:pre-wrap;
+  line-height:1.8;
+  min-height:120px;
+}
+
+.tag{
+  display:inline-block;
+  background:#ede9fe;
+  color:#4f46e5;
+  padding:6px 12px;
+  border-radius:999px;
+  margin:4px;
+  font-size:13px;
+}
+
+.feature-list{
+  margin-left:20px;
+  margin-top:10px;
+}
+
+.footer{
+  text-align:center;
+  padding:30px;
+  color:#6b7280;
+}
+
+@media(max-width:768px){
+
+  header h1{
+    font-size:32px;
+  }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+
+<h1>AI简历优化助手</h1>
+
+<p>基于豆包大模型的智能AI求职平台</p>
+
+<p>
+第12周实验课汇报 ｜ 汇报人：孙家辉 ｜ 班级：计本一班 ｜ 日期：2026年5月
+</p>
+
+</header>
+
+<div class="container">
+
+<div class="grid">
+
+<div class="card">
+
+<h2>项目背景</h2>
+
+<p>
+随着就业竞争越来越激烈，很多大学生在制作简历时存在以下问题：
+</p>
+
+<ul class="feature-list">
+<li>不知道如何写简历</li>
+<li>表达不够专业</li>
+<li>缺少岗位针对性</li>
+<li>简历内容过于普通</li>
+</ul>
+
+<p style="margin-top:15px;">
+因此，本项目基于豆包大语言模型，实现AI智能简历优化与岗位分析。
+</p>
+
+</div>
+
+<div class="card">
+
+<h2>项目功能</h2>
+
+<div class="tag">AI简历优化</div>
+<div class="tag">岗位匹配</div>
+<div class="tag">AI问答</div>
+<div class="tag">面试生成</div>
+
+<ul class="feature-list">
+<li>智能润色简历内容</li>
+<li>自动岗位匹配分析</li>
+<li>AI生成自我介绍</li>
+<li>真实AI大模型对话</li>
+</ul>
+
+</div>
+
+<div class="card">
+
+<h2>AI简历优化</h2>
+
+<textarea
+id="resumeInput"
+placeholder="请输入你的简历内容，例如：我会Python，参加过学校活动">
+</textarea>
+
+<button onclick="optimizeResume()">
+AI优化简历
+</button>
+
+<div class="result" id="optimizedOutput">
+AI优化结果将在这里显示...
+</div>
+
+</div>
+
+<div class="card">
+
+<h2>岗位匹配分析</h2>
+
+<input
+type="text"
+id="jobInput"
+placeholder="请输入目标岗位，例如：数据分析实习生">
+
+<button onclick="jobMatch()">
+生成岗位建议
+</button>
+
+<div class="result" id="jobOutput">
+岗位分析结果将在这里显示...
+</div>
+
+</div>
+
+<div class="card">
+
+<h2>AI面试自我介绍</h2>
+
+<p>
+根据你的简历内容，AI自动生成1分钟面试自我介绍。
+</p>
+
+<button onclick="generateInterview()">
+生成自我介绍
+</button>
+
+<div class="result" id="interviewOutput">
+AI生成结果将在这里显示...
+</div>
+
+</div>
+
+<div class="card">
+
+<h2>AI智能问答</h2>
+
+<textarea
+id="chatInput"
+placeholder="你可以向AI提问，例如：如何提高简历通过率？">
+</textarea>
+
+<button onclick="chatAI()">
+发送问题
+</button>
+
+<div class="result" id="chatOutput">
+AI回答将在这里显示...
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="footer">
+
+© 2026 AI简历优化助手 ｜ 基于豆包大模型开发
+
+</div>
+
+<script>
+
+/*
+==========================================
+请把下面替换成你的豆包API Key
+==========================================
+*/
+
+const API_KEY = "ark-a02933fd-3404-4fa1-b5d1-90c490d7017b-4dc91";
+
+/*
+==========================================
+豆包AI请求函数
+==========================================
+*/
+
+async function callDoubao(prompt){
+
+  try{
+
+    const response = await fetch(
+      "https://ark.cn-beijing.volces.com/api/v3/chat/completions",
+      {
+
+        method:"POST",
+
+        headers:{
+          "Content-Type":"application/json",
+          "Authorization":"Bearer " + API_KEY
+        },
+
+        body:JSON.stringify({
+
+          model:"ep-20260516215507-4x2lm",
+
+          messages:[
+            {
+              role:"system",
+              content:"你是一名专业AI简历优化与职业规划助手。"
+            },
+            {
+              role:"user",
+              content:prompt
+            }
+          ],
+
+          temperature:0.7
+
+        })
+
+      }
+    );
+
+    const data = await response.json();
+
+    return data.choices[0].message.content;
+
+  }catch(error){
+
+    return "请求失败：" + error;
+
+  }
+
+}
+
+/*
+==========================================
+AI简历优化
+==========================================
+*/
+
+async function optimizeResume(){
+
+  let text = document.getElementById("resumeInput").value.trim();
+
+  if(!text){
+
+    alert("请输入简历内容！");
+
+    return;
+
+  }
+
+  document.getElementById("optimizedOutput").innerText =
+  "AI正在优化中，请稍候...";
+
+  const prompt =
+  "请将下面的简历内容优化得更加专业：\n\n" + text;
+
+  const result = await callDoubao(prompt);
+
+  document.getElementById("optimizedOutput").innerText = result;
+
+}
+
+/*
+==========================================
+岗位匹配分析
+==========================================
+*/
+
+async function jobMatch(){
+
+  let job = document.getElementById("jobInput").value.trim();
+
+  let resume = document.getElementById("resumeInput").value.trim();
+
+  if(!job){
+
+    alert("请输入目标岗位！");
+
+    return;
+
+  }
+
+  document.getElementById("jobOutput").innerText =
+  "AI正在分析岗位匹配...";
+
+  const prompt =
+  "目标岗位：" + job +
+  "\n\n简历内容：" + resume +
+  "\n\n请分析该简历与岗位的匹配度，并给出修改建议。";
+
+  const result = await callDoubao(prompt);
+
+  document.getElementById("jobOutput").innerText = result;
+
+}
+
+/*
+==========================================
+AI自我介绍生成
+==========================================
+*/
+
+async function generateInterview(){
+
+  let resume = document.getElementById("resumeInput").value.trim();
+
+  if(!resume){
+
+    alert("请先输入简历内容！");
+
+    return;
+
+  }
+
+  document.getElementById("interviewOutput").innerText =
+  "AI正在生成自我介绍...";
+
+  const prompt =
+  "请根据以下简历内容，生成一段1分钟面试自我介绍：\n\n" + resume;
+
+  const result = await callDoubao(prompt);
+
+  document.getElementById("interviewOutput").innerText = result;
+
+}
+
+/*
+==========================================
+AI聊天问答
+==========================================
+*/
+
+async function chatAI(){
+
+  let question = document.getElementById("chatInput").value.trim();
+
+  if(!question){
+
+    alert("请输入问题！");
+
+    return;
+
+  }
+
+  document.getElementById("chatOutput").innerText =
+  "AI正在思考中...";
+
+  const result = await callDoubao(question);
+
+  document.getElementById("chatOutput").innerText = result;
+
+}
+
+</script>
+
+</body>
+</html>
